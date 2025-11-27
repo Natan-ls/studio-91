@@ -1,0 +1,90 @@
+/* --- ESTILOS ESPECÍFICOS DA PÁGINA DE LOGIN --- */
+
+body.login-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('../img/hero/casamento-externo.jpg');
+    background-size: cover;
+    background-position: center;
+    margin: 0; 
+}
+
+.login-card {
+    background-color: rgba(18, 18, 18, 0.95); 
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.login-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+.login-logo span { color: var(--accent-color); }
+
+.login-subtitle {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--accent-color);
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: white;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+.links-uteis {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.links-uteis a {
+    color: #888;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.links-uteis a:hover {
+    color: #fff;
+    text-decoration: underline;
+}

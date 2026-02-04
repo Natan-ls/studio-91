@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # --- SERVIDOR WEB (NGINX) ---
+  web:
+    image: nginx:alpine
+    container_name: studio91_web
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html       
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+      - db
+
+  # --- BACKEND (PHP) ---
+  php:
+    build: ./docker/php            # Usa o Dockerfile
+    container_name: studio91_php
+    volumes:
+      - ./src:/var/www/html        
+    environment:
+      # Passa as variáveis do .env para o PHP ler com getenv()
+      DB_HOST: ${POSTGRES_HOST}
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASS: ${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+
+  # --- BANCO DE DADOS (POSTGRES) ---
+  db:
+    image: postgres:15-alpine
+    container_name: studio91_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  # --- GERENCIADOR DE BANCO (ADMINER) ---
+  adminer:
+    image: adminer
+    container_name: studio91_adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:

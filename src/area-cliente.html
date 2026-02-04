@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área do Cliente | Studio 91</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/client-area.css"> </head>
+    <link rel="stylesheet" href="css/client-area.css">
+</head>
 <body>
-
     <header>
         <div class="container navbar">
             <div class="logo">STUDIO<span>91</span></div>
             <nav>
                 <ul class="nav-links">
-                    <li><a href="index.html">Voltar ao Site</a></li>
-                    <li><a href="#" id="logout-btn" style="color: #ff4d4d;">Sair</a></li>
+                    <li><a href="api/logout.php" class="btn-logout">Sair</a></li>
                 </ul>
             </nav>
         </div>
@@ -23,7 +22,7 @@
     <main class="client-content">
         <div class="container">
             <div class="welcome-header">
-                <h1>Olá, <span id="user-name">Cliente</span></h1>
+                <h1>Olá, <span id="user-name">Carregando...</span></h1>
                 <p>Aqui estão os registros dos seus momentos.</p>
             </div>
 
@@ -36,24 +35,30 @@
             <section id="photos-view" class="hidden">
                 <div class="photos-header">
                     <button class="btn-back" onclick="closeAlbum()">← Voltar para Álbuns</button>
-                    <h2 id="album-title">Título do Álbum</h2>
+                    <h2 id="album-title">Título</h2>
                 </div>
-                <div class="grid-photos" id="photos-container">
-                    </div>
+                <div class="grid-photos" id="photos-container"></div>
             </section>
         </div>
     </main>
 
-    <div id="lightbox" class="lightbox hidden" onclick="closeLightbox()">
-        <span class="close-lightbox">&times;</span>
-        <img class="lightbox-img" id="lightbox-img" src="" alt="Visualização">
-    </div>
-
-    <footer>
-        <div class="container footer-content">
-            <p>&copy; 2026 Studio 91. Área Restrita.</p>
+    <div id="lightbox" class="lightbox hidden" style="display: none;" onclick="closeLightbox(event)">
+        
+        <span class="close-lightbox" title="Fechar">&times;</span>
+        
+        <div class="lightbox-content" onclick="event.stopPropagation()"> <img class="lightbox-img" id="lightbox-img" src="" alt="Visualização em alta resolução">
+            
+            <a id="btn-download" href="#" download target="_blank" class="btn-download">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Baixar Foto
+            </a>
         </div>
-    </footer>
+
+    </div>
 
     <script src="js/client.js"></script>
 </body>

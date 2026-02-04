@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin | Studio 91</title>
+    
+    <script>
+        fetch('api/check_auth.php')
+            .then(response => {
+                if (response.status !== 200) {
+                    window.location.href = 'admin-login.html';
+                }
+            })
+            .catch(() => {
+                window.location.href = 'admin-login.html';
+            });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo">STUDIO<span>91</span> <small>Admin</small></div>
+            <nav>
+                <button class="nav-btn" onclick="showTab('tab-clientes')">👥 Cadastrar Cliente</button>
+                <button class="nav-btn" onclick="showTab('tab-albuns')">📁 Criar Álbum</button>
+                <button class="nav-btn active" onclick="showTab('tab-upload')">📸 Upload de Fotos</button>
+                <a href="index.html" class="nav-logout">Sair</a>
+            </nav>
+        </aside>
+
+        <main class="content">
+
+            <!-- SECTION DE CADASTRAR CLIENTE-->
+            <section id="tab-clientes" class="tab-content">
+                <h2>Cadastrar Cliente</h2>
+                <div class="card">
+                    <form id="cliente-form">
+                        <div class="form-group">
+                            <label>Nome Completo</label>
+                            <input type="text" name="nome" placeholder="Nome do cliente" required>
+                        </div>
+                        <div class="form-group">
+                            <label>E-mail (Login)</label>
+                            <input type="email" name="email" placeholder="email@cliente.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Senha Inicial</label>
+                            <input type="text" name="senha" value="123456" required>
+                        </div>
+                        <button type="submit" class="btn-submit">SALVAR CLIENTE</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- SECTION DE CRIAR UM ÁLBUM-->
+            <section id="tab-albuns" class="tab-content">
+                <h2>Novo Álbum</h2>
+                <div class="card">
+                    <form id="album-form">
+                        <div class="form-group">
+                            <label>Cliente Dono do Álbum</label>
+                            <select id="album-cliente-select" name="usuario_id" required>
+                                </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Título do Álbum</label>
+                            <input type="text" name="titulo" placeholder="Ex: Casamento Ana & João" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Data do Evento</label>
+                                <input type="date" name="data_evento" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <select name="categoria">
+                                    <option value="Social">Social</option>
+                                    <option value="Corporativo">Corporativo</option>
+                                    <option value="Ensaio">Ensaio</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit">CRIAR ÁLBUM</button>
+                    </form>
+                </div>
+            </section>
+            
+            <!-- SECTION DE ADICIONAR FOTOS NO ALBÚM-->
+            <section id="tab-upload" class="tab-content active">
+                
+                <div id="view-albuns">
+                    <h2>Gerenciar Álbuns</h2>
+                    <div class="form-group" style="max-width: 400px; margin-bottom: 30px;">
+                        <label>Selecione o Cliente</label>
+                        <select id="gerenciar-cliente-select" onchange="carregarAlbunsCards(this.value)">
+                            <option value="">Selecione...</option>
+                            </select>
+                    </div>
+
+                    <div id="albuns-grid" class="admin-grid">
+                        <p style="color: #999;">Selecione um cliente para ver os álbuns.</p>
+                    </div>
+                </div>
+
+                <div id="view-fotos" class="hidden">
+                    <div class="header-fotos">
+                        <button class="btn-back-admin" onclick="voltarParaAlbuns()">← Voltar</button>
+                        <h2 id="titulo-album-aberto">Gerenciando Álbum</h2>
+                    </div>
+
+                    <input type="file" id="add-foto-input" multiple accept="image/*" hidden>
+                    
+                    <div id="fotos-manager-grid" class="admin-grid photos-grid">
+                        </div>
+                </div>
+
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
